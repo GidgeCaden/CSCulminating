@@ -16,21 +16,34 @@ import javax.swing.JPanel;
 public class SimulationPanel extends JPanel{
     
     private double data[][][];
+    private String collisionType;
     private boolean useCartMode;
     
-    public SimulationPanel(double[][][] data, boolean useCartMode, JPanel panel)
+    public SimulationPanel(double[][][] data, String collisionType,boolean useCartMode, JPanel panel)
     {
         this.data = data;
+        this.collisionType = collisionType;
         this.useCartMode = useCartMode;
         panel.setBackground(Color.WHITE);
     }
     
-    public void runSimulation(Cart cart1, Cart cart2)
+//    public void runSimulation(Cart cart1, Cart cart2)
+//    {
+//        
+//    }
+    
+    public void runSimulationPerfectlyElastic(Cart cart1, Cart cart2)
+    {
+        Physics.perfectlyElasticV1(cart1.getMass(), cart1.getVelocity(), cart2.getMass(), cart2.getVelocity());
+        Physics.perfectlyElasticV2(cart1.getMass(), cart1.getVelocity(), cart2.getMass(), cart2.getVelocity());
+    }
+    
+    public void runSimulationInElastic(Cart cart1, Cart cart2)
     {
         
     }
     
-    public void runSimulation(double[][][] data)
+    public void runSimulationPerfectlyInElastic(Cart cart1, Cart cart2)
     {
         
     }
@@ -45,7 +58,27 @@ public class SimulationPanel extends JPanel{
         
         if(useCartMode)
         {
-            
+            if(collisionType.equals("perfectly elastic"))
+            {
+                while(true)
+                {
+                    repaint();
+                }
+            }
+            else if(collisionType.equals("ineleastic"))
+            {
+                while(true)
+                {
+                    repaint();
+                }
+            }
+            else
+            {
+                while(true)
+                {
+                    repaint();
+                }
+            }
         }
         else
         {

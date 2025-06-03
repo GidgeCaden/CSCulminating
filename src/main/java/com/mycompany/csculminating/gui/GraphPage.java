@@ -4,6 +4,8 @@
  */
 package com.mycompany.csculminating.gui;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author CaGid4274
@@ -15,6 +17,18 @@ public boolean isOpen = true;
      */
     public GraphPage() {
         initComponents();
+        double[][][] dataSet = {
+    {
+        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
+        {0, 5, 15, 30, 45, 55, 65, 70, 80, 95, 110, 125, 135, 140, 150, 165, 170, 180, 195, 200, 210, 225, 235, 245, 250, 260, 270, 275, 285, 295, 299}  // y-values
+    },
+    {
+        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
+        {300, 295, 285, 270, 255, 245, 235, 220, 205, 190, 175, 160, 150, 140, 130, 125, 115, 100, 90, 75, 65, 55, 45, 35, 25, 15, 10, 5, 3, 1, 0}         // y-values
+    }
+};
+        GraphPanel intro = new GraphPanel(dataSet, tempGraph);
+        tempGraph.add(intro, BorderLayout.CENTER);
     }
 
     /**
@@ -28,7 +42,6 @@ public boolean isOpen = true;
 
         closeButton = new javax.swing.JButton();
         tempGraph = new javax.swing.JPanel();
-        tempGraphText = new javax.swing.JLabel();
         TitleScreen1 = new javax.swing.JLabel();
         CloseButtonBorder = new javax.swing.JPanel();
 
@@ -48,24 +61,17 @@ public boolean isOpen = true;
         getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 610, 580, 30));
 
         tempGraph.setBackground(new java.awt.Color(204, 204, 204));
-
-        tempGraphText.setText("Insert Graph here");
+        tempGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
 
         javax.swing.GroupLayout tempGraphLayout = new javax.swing.GroupLayout(tempGraph);
         tempGraph.setLayout(tempGraphLayout);
         tempGraphLayout.setHorizontalGroup(
             tempGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tempGraphLayout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addComponent(tempGraphText)
-                .addContainerGap(252, Short.MAX_VALUE))
+            .addGap(0, 576, Short.MAX_VALUE)
         );
         tempGraphLayout.setVerticalGroup(
             tempGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tempGraphLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(tempGraphText)
-                .addContainerGap(240, Short.MAX_VALUE))
+            .addGap(0, 296, Short.MAX_VALUE)
         );
 
         getContentPane().add(tempGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 230, 580, 300));
@@ -130,6 +136,5 @@ public boolean isOpen = true;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JButton closeButton;
     private javax.swing.JPanel tempGraph;
-    private javax.swing.JLabel tempGraphText;
     // End of variables declaration//GEN-END:variables
 }

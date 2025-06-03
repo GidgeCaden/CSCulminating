@@ -26,6 +26,8 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         
+        
+        
     }
 
     public static void changeOpen()
@@ -151,49 +153,8 @@ public class GUI extends javax.swing.JFrame {
 
     private void InputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputButtonActionPerformed
         
-        JFileChooser fileChooser = new JFileChooser();
+        ImportFile.findFile();
         
-        int response = fileChooser.showOpenDialog(null); //select the file to open
-        
-        if (response ==JFileChooser.APPROVE_OPTION)
-        {
-            
-            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
-            
-            String csvFile = fileChooser.getSelectedFile().getAbsolutePath();
-            BufferedReader reader = null;
-            String line = "";
-            
-            try{
-                reader = new BufferedReader(new FileReader(csvFile));
-                while((line = reader.readLine())!= null){
-                    
-                    String[] row = line.split(",");
-                    
-                    for(String index : row)
-                    {
-                     
-                        System.out.printf("%-10s", index);
-                    }
-                    System.out.println();
-                }    
-            }
-            catch(Exception e){
-            e.printStackTrace();
-            }
-            finally{
-                try {
-                      reader.close();
-                    } 
-                    catch (Exception e) {
-                    e.printStackTrace();
-                    }   
-                }
-            
-            
-            
-            
-        }
     }//GEN-LAST:event_InputButtonActionPerformed
 
     /**

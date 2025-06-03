@@ -25,4 +25,5 @@
         <maven.compiler.target>20</maven.compiler.target>
         <exec.mainClass>com.mycompany.csculminating.gui.CSCulminatingGUI</exec.mainClass>
     </properties>
+    <name>CSCulminating-GUI65</name>
 </project>

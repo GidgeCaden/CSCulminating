@@ -12,11 +12,13 @@ public class Cart {
     
     private double mass;
     private double velocity;
+    private double position;
     
     public Cart(double mass, double velocity)
     {
         this.mass = Math.abs(mass);
         this.velocity = velocity;
+        this.position = 100;
     }
     
     //Accessor Method
@@ -30,6 +32,11 @@ public class Cart {
         return mass;
     }
     
+    public double getPosition()
+    {
+        return position;
+    }
+    
     //Mutator Methods
     public void setVelocity(double velocity)
     {
@@ -39,6 +46,11 @@ public class Cart {
     public void setMass(double velocity)
     {
         this.velocity = mass;
+    }
+    
+    public void setPosition(double position)
+    {
+        this.position = position;
     }
     
 }

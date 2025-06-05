@@ -24,6 +24,9 @@ public class GraphPanel extends JPanel{
     //Panel Dimensions
     private double panelWidth;
     private double panelHeight;
+    //Axis Names
+    private String xAxis;
+    private String yAxis;
     //Scaling
     //Max X and Y Values For Scaling
     private double[] maxValues;
@@ -31,6 +34,7 @@ public class GraphPanel extends JPanel{
     private double yScale;
     //Padding Around the Graph
     private static final int  padding = 40;
+    private static final int  graphOffSetX = 20;
     
     /* 
     * Creates a Graph Panel Object
@@ -67,27 +71,45 @@ public class GraphPanel extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         //Calls the Superclass to Ensure Proper Rendering
         super.paintComponent(g);
+        //Creates an AffineTransform Object
+        AffineTransform original = g2.getTransform();
         //Draws Each Graph in the Data Array
         for(int k = 0; k < data.length; k++)
         {
-            //Sets a Distinct Color for Each Graph Based on the Data's Index
-            g2.setColor(Color.getHSBColor((float) k / data.length, 1.0f, 1.0f));
             //Draws Connected Lines Between all the Points in the Graph
             for(int i = 1; i < data[k][0].length; i++)
-            {            
-                g2.draw(new Line2D.Double((data[k][0][i-1] * xScale) + padding, ((panelHeight - data[k][1][i - 1]) * yScale) + padding, (data[k][0][i] * xScale) + padding, ((panelHeight - data[k][1][i]) * yScale) + padding));
+            {      
+                //Sets a Distinct Color for Each Graph Based on the Data's Index
+                g2.setColor(Color.getHSBColor((float) k / data.length, 1.0f, 1.0f));
+                g2.draw(new Line2D.Double((data[k][0][i-1] * xScale) + padding + graphOffSetX, ((panelHeight - data[k][1][i - 1]) * yScale) + padding, (data[k][0][i] * xScale) + padding + graphOffSetX, ((panelHeight - data[k][1][i]) * yScale) + padding));
             }
         }
         //Draws the x and y Axis Text
+        //Draw x-Axis Ticks and Labels
+        int xTicks = 10;
+        for (int i = 0; i <= xTicks; i++) {
+            double xVal = i * maxValues[0] / xTicks;
+            g2.setColor(Color.BLACK);
+            g2.drawLine((int)(xVal * xScale + padding + graphOffSetX), (int)(panelHeight - padding), (int)(xVal * xScale + padding + graphOffSetX), (int)(panelHeight - padding + 5));
+            g2.drawString(String.format("%.1f", xVal), (int)(xVal * xScale + padding) - 10 + graphOffSetX, (int)(panelHeight - padding + 20));
+        }
+
+        //Draw y-Axis Ticks and Labels
+        int yTicks = 10;
+        for (int i = 0; i <= yTicks; i++) {
+            double yVal = i * maxValues[1] / yTicks;
+            g2.setColor(Color.BLACK);
+            g2.drawLine(padding - 5 + graphOffSetX, (int)((panelHeight - padding) - yVal * yScale), padding + graphOffSetX, (int)((panelHeight - padding) - yVal * yScale));
+            g2.drawString(String.format("%.1f", yVal), padding - 35 + graphOffSetX - 5, (int)((panelHeight - padding) - yVal * yScale) + 5);
+        }
         //Sets the Text Color and Font
         g2.setColor(Color.BLACK);
         g2.setFont(new Font("SansSerif", Font.BOLD, 12));
         //Draw "Graph Title" Label Centered Under the Graph
-        g2.drawString("Graph Title", (int)(panelWidth / 2) - 40, 15);
+        g2.drawString("Graph Title", (int)(panelWidth / 2) - 40, 20);
         //Draw "X Axis" Label Centered Under the Graph
         g2.drawString("X Axis", (int)(panelWidth / 2) - 20, (int)(panelHeight - 5));
         //Draw "Y Axis" Label Rotated Vertically on the Left
-        AffineTransform original = g2.getTransform();
         g2.rotate(-Math.PI / 2);
         g2.drawString("Y Axis", (int)(-panelHeight / 2) - 20, 15);
         g2.setTransform(original); // Reset rotation

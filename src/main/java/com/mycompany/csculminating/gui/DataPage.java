@@ -4,31 +4,19 @@
  */
 package com.mycompany.csculminating.gui;
 
-import java.awt.BorderLayout;
-
 /**
  *
- * @author CaGid4274
+ * @author caden
  */
-public class GraphPage extends javax.swing.JFrame {
-public boolean isOpen = true;
+public class DataPage extends javax.swing.JFrame {
+    
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DataPage.class.getName());
+
     /**
-     * Creates new form GraphPage
+     * Creates new form DataPage
      */
-    public GraphPage() {
+    public DataPage() {
         initComponents();
-        double[][][] dataSet = {
-    {
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
-        {0, 5, 15, 30, 45, 55, 65, 70, 80, 95, 110, 125, 135, 140, 150, 165, 170, 180, 195, 200, 210, 225, 235, 245, 250, 260, 270, 275, 285, 295, 299}  // y-values
-    },
-    {
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
-        {300, 295, 285, 270, 255, 245, 235, 220, 205, 190, 175, 160, 150, 140, 130, 125, 115, 100, 90, 75, 65, 55, 45, 35, 25, 15, 10, 5, 3, 1, 0}         // y-values
-    }
-};
-        GraphPanel intro = new GraphPanel(dataSet, tempGraph);
-        tempGraph.add(intro, BorderLayout.CENTER);
     }
 
     /**
@@ -41,13 +29,14 @@ public boolean isOpen = true;
     private void initComponents() {
 
         closeButton = new javax.swing.JButton();
-        tempGraph = new javax.swing.JPanel();
-        TitleScreen1 = new javax.swing.JLabel();
         CloseButtonBorder = new javax.swing.JPanel();
+        TitleScreen1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(620, 700));
         setMinimumSize(new java.awt.Dimension(620, 700));
+        setPreferredSize(new java.awt.Dimension(620, 700));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         closeButton.setBackground(new java.awt.Color(204, 204, 204));
@@ -60,40 +49,24 @@ public boolean isOpen = true;
         });
         getContentPane().add(closeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 610, 580, 30));
 
-        tempGraph.setBackground(new java.awt.Color(204, 204, 204));
-        tempGraph.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153), 2));
-
-        javax.swing.GroupLayout tempGraphLayout = new javax.swing.GroupLayout(tempGraph);
-        tempGraph.setLayout(tempGraphLayout);
-        tempGraphLayout.setHorizontalGroup(
-            tempGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
-        );
-        tempGraphLayout.setVerticalGroup(
-            tempGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 296, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(tempGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 230, 580, 300));
+        CloseButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(CloseButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 608, 584, 34));
 
         TitleScreen1.setBackground(new java.awt.Color(153, 153, 153));
         TitleScreen1.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 96)); // NOI18N
         TitleScreen1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TitleScreen1.setText("Collision Graph ");
+        TitleScreen1.setText("Collision Data ");
         TitleScreen1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(TitleScreen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 600, -1));
-
-        CloseButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
-        getContentPane().add(CloseButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 608, 584, 34));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        
-        GUI.changeOpenG();
+
+        GUI.changeOpenD();
         setVisible(false);
-        
+
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
@@ -112,29 +85,18 @@ public boolean isOpen = true;
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GraphPage().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new DataPage().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CloseButtonBorder;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JButton closeButton;
-    private javax.swing.JPanel tempGraph;
     // End of variables declaration//GEN-END:variables
 }

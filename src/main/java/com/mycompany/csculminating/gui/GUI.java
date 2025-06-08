@@ -22,18 +22,31 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
-    public static boolean isOpen = false;
+    public static boolean isOpenG = false;
+    public static boolean isOpenS = false;
+    public static boolean isOpenD = false;
+
+    
     public GUI() {
         initComponents();
-        
-        
-        
     }
 
-    public static void changeOpen()
+    public static void changeOpenG()
     {
-        isOpen = !isOpen;
+        isOpenG = !isOpenG;
     }
+    
+    public static void changeOpenS()
+    {
+        isOpenS = !isOpenS;
+    }
+    
+    public static void changeOpenD()
+    {
+        isOpenD = !isOpenD;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +72,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(620, 700));
+        setPreferredSize(new java.awt.Dimension(620, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -88,6 +102,11 @@ public class GUI extends javax.swing.JFrame {
         DataButton.setText("Data");
         DataButton.setBorder(null);
         DataButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        DataButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DataButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(DataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 500, 180, 40));
 
         InputButton.setBackground(new java.awt.Color(204, 204, 204));
@@ -135,16 +154,25 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimButtonActionPerformed
-        // TODO add your handling code here:
+      
+        SimPage openS = new SimPage();
+        if(!isOpenS)
+        {
+            openS.setVisible(true);
+            isOpenS = !isOpenS;
+        }
+        
+        
+        
     }//GEN-LAST:event_SimButtonActionPerformed
 
     private void GraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraphButtonActionPerformed
       
-        GraphPage open = new GraphPage();
-        if(!isOpen)
+        GraphPage openG = new GraphPage();
+        if(!isOpenG)
         {
-            open.setVisible(true);
-            isOpen = !isOpen;
+            openG.setVisible(true);
+            isOpenG = !isOpenG;
         }
         
         
@@ -156,6 +184,19 @@ public class GUI extends javax.swing.JFrame {
         ImportFile.findFile();
         
     }//GEN-LAST:event_InputButtonActionPerformed
+
+    private void DataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataButtonActionPerformed
+      
+        DataPage openD = new DataPage();
+        if(!isOpenD)
+        {
+            openD.setVisible(true);
+            isOpenD = !isOpenD;
+        }
+        
+        
+        
+    }//GEN-LAST:event_DataButtonActionPerformed
 
     /**
      * @param args the command line arguments

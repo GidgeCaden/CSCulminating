@@ -19,12 +19,34 @@ public boolean isOpen = true;
         initComponents();
         double[][][] dataSet = {
     {
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
-        {0, 5, 15, 30, 45, 55, 65, 70, 80, 95, 110, 125, 135, 140, 150, 165, 170, 180, 195, 200, 210, 225, 235, 245, 250, 260, 270, 275, 285, 295, 299}  // y-values
+        // Line 1: Steep exponential curve
+        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+        {1, 10, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500}
     },
     {
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
-        {300, 295, 285, 270, 255, 245, 235, 220, 205, 190, 175, 160, 150, 140, 130, 125, 115, 100, 90, 75, 65, 55, 45, 35, 25, 15, 10, 5, 3, 1, 0}         // y-values
+        // Line 2: Horizontal line at large y (tests horizontal drawing & top Y limit)
+        {0, 50, 100, 150, 200, 250, 300},
+        {4000, 4000, 4000, 4000, 4000, 4000, 4000}
+    },
+    {
+        // Line 3: Sharp drop (tests vertical resolution and line break smoothness)
+        {0, 10, 20, 30, 40, 50},
+        {2000, 1500, 1000, 500, 10, -1000}
+    },
+    {
+        // Line 4: Negative curve (tests bottom quadrant and axis flipping)
+        {0, 10, 20, 30, 40, 50, 60},
+        {0, -10, -30, -60, -100, -150, -210}
+    },
+    {
+        // Line 5: Flat line near zero (precision check)
+        {0, 50, 100, 150, 200, 250, 300},
+        {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1}
+    },
+    {
+        // Line 6: Zig-zag/jagged pattern (tests rendering of rapid direction change)
+        {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50},
+        {0, 100, -100, 100, -100, 100, -100, 100, -100, 100, -100}
     }
 };
         GraphPanel intro = new GraphPanel(dataSet, tempGraph);
@@ -90,7 +112,7 @@ public boolean isOpen = true;
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         
-        GUI.changeOpen();
+        //GUI.changeOpen();
         setVisible(false);
         
     }//GEN-LAST:event_closeButtonActionPerformed
@@ -120,6 +142,9 @@ public boolean isOpen = true;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

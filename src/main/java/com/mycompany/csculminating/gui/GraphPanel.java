@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 public class GraphPanel extends JPanel{
     //Instatitates the Necessary Varibles 
     //3D Array Storing Multimple Graphs (Each With x and y Arrays)
-    private double[][][] data;
+    private double[][] data;
     //Panel Dimensions
     private double panelWidth;
     private double panelHeight;
@@ -41,7 +41,7 @@ public class GraphPanel extends JPanel{
     * @param data 3D Array Where Each 2D Array Represents a Graph's x and y Data
     * @param panel The Container Panel (Used to Get Initial Width/Height)
     */
-    public GraphPanel(double[][][] data, JPanel panel)
+    public GraphPanel(double[][] data, JPanel panel)
     {
         this.data = data;
         //Set Layout and Background Color
@@ -72,11 +72,11 @@ public class GraphPanel extends JPanel{
         for(int k = 0; k < data.length; k++)
         {
             //Draws Connected Lines Between all the Points in the Graph
-            for(int i = 1; i < data[k][0].length; i++)
+            for(int i = 1; i < data[0].length; i++)
             {      
                 //Sets a Distinct Color for Each Graph Based on the Data's Index
                 g2.setColor(Color.getHSBColor((float) k / data.length, 1.0f, 1.0f));
-                g2.draw(new Line2D.Double((data[k][0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][1][i - 1] - maxValues[3]) * yScale, (data[k][0][i] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][1][i] - maxValues[3]) * yScale));
+                g2.draw(new Line2D.Double((data[0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[1][i - 1] - maxValues[3]) * yScale, (data[0][i] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[1][i] - maxValues[3]) * yScale));
             }
         }
         //Draws the x and y Axis Text
@@ -117,33 +117,30 @@ public class GraphPanel extends JPanel{
     * @param data A Single 2D Dataset: data[0] = x-values, data[1] = y-values
     * @return xyValues An Array with Max x at Index 0 and Max y at Index 1
     */
-    private double[] getMaxValues(double[][][] data)
+    private double[] getMaxValues(double[][] data)
     {
         double[] xyValues = new double[4];
-        double tempMaxX = data[0][0][0];
-        double tempMaxY = data[0][1][0];
-        double tempMinX = data[0][0][0];
-        double tempMinY = data[0][1][0];
-        for(int k = 0; k < data.length; k++)
+        double tempMaxX = data[0][0];
+        double tempMaxY = data[1][0];
+        double tempMinX = data[0][0];
+        double tempMinY = data[1][0];
+        for(int i = 0; i < data[0].length; i++)
         {
-            for(int i = 0; i < data[k][0].length; i++)
+            if(data[0][i] > tempMaxX)
             {
-                if(data[k][0][i] > tempMaxX)
-                {
-                    tempMaxX = data[k][0][i];
-                }
-                else if(data[k][0][i] < tempMinX)
-                {
-                    tempMinX = data[k][0][i];
-                }
-                if(data[k][1][i] > tempMaxY)
-                {
-                    tempMaxY = data[k][1][i];
-                }
-                else if(data[k][1][i] < tempMinY)
-                {
-                    tempMinY = data[k][1][i];
-                }
+                tempMaxX = data[0][i];
+            }
+            else if(data[0][i] < tempMinX)
+            {
+                tempMinX = data[0][i];
+            }
+            if(data[1][i] > tempMaxY)
+            {
+                tempMaxY = data[1][i];
+            }
+            else if(data[1][i] < tempMinY)
+            {
+                tempMinY = data[1][i];
             }
         }
         xyValues[0] = tempMaxX;
@@ -157,7 +154,7 @@ public class GraphPanel extends JPanel{
     * Calculates the Scaling Factors Based on a Given Graph's Max x and y values
     * @param array2D An Index of the 2D Graph data to use for Scale Calculation
     */
-    private void calculateScales(double[][][] data)
+    private void calculateScales(double[][] data)
     {
         this.maxValues = getMaxValues(data);
         this.xScale = (panelWidth - 2 * padding) / (maxValues[0] - maxValues[2]);

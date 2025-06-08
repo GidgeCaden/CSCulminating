@@ -20,7 +20,7 @@ public class SimPage extends javax.swing.JFrame {
     public SimPage() {
         initComponents();
         
-        double[][][] testData = {{
+        double[][] testData = {
         { // Index 0: Time values
             0.000, 0.016, 0.032, 0.048, 0.064, 0.080, 0.096, 0.112, 0.128, 0.144,
             0.160, 0.176, 0.192, 0.208, 0.224, 0.240, 0.256, 0.272, 0.288, 0.304,
@@ -112,7 +112,7 @@ public class SimPage extends javax.swing.JFrame {
             -871.85192, -873.80912, -875.76352, -877.71512, -879.66392, -881.60992, -883.55312, -885.49352, -887.43112, -889.36592,
             -891.29792, -893.22712, -895.15352, -897.07712, -899.0
         }
-    }};
+    };
         
         Cart cart1 = new Cart(1, -1, 150);
         Cart cart2 = new Cart(1, 1, 60);

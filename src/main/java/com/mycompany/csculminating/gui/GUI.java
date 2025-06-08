@@ -31,7 +31,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         
-        double[][][] testData = {{
+        double[][] testData = {
         { // Index 0: Time values
             0.0, 0.016, 0.032, 0.048, 0.064, 0.080, 0.096, 0.112, 0.128, 0.144,
             0.160, 0.176, 0.192, 0.208, 0.224, 0.240, 0.256, 0.272, 0.288, 0.304
@@ -52,7 +52,7 @@ public class GUI extends javax.swing.JFrame {
             200.0, 196.8, 193.5, 190.1, 186.6, 183.0, 179.3, 175.5, 171.6, 167.6,
             163.5, 159.3, 155.0, 150.6, 146.1, 141.5, 136.8, 132.0, 127.1, 122.1
         }
-    }};
+    };
         
         Cart cart1 = new Cart(1, -1, 150);
         Cart cart2 = new Cart(1, 1, 60);

@@ -18,31 +18,31 @@ public boolean isOpen = true;
     public GraphPage() {
         initComponents();
         double[][][] dataSet = {
-    {
-        // Line 1: Steep exponential curve
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-        {1, 10, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500}
-    },
-    {
-        // Line 2: Horizontal line at large y (tests horizontal drawing & top Y limit)
-        {0, 50, 100, 150, 200, 250, 300},
-        {4000, 4000, 4000, 4000, 4000, 4000, 4000}
-    },
-    {
-        // Line 3: Sharp drop (tests vertical resolution and line break smoothness)
-        {0, 10, 20, 30, 40, 50},
-        {2000, 1500, 1000, 500, 10, -1000}
-    },
-    {
-        // Line 4: Negative curve (tests bottom quadrant and axis flipping)
-        {0, 10, 20, 30, 40, 50, 60},
-        {0, -10, -30, -60, -100, -150, -210}
-    },
-    {
-        // Line 5: Flat line near zero (precision check)
-        {0, 50, 100, 150, 200, 250, 300},
-        {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1}
-    },
+//    {
+//        // Line 1: Steep exponential curve
+//        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
+//        {1, 10, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500}
+//    },
+//    {
+//        // Line 2: Horizontal line at large y (tests horizontal drawing & top Y limit)
+//        {0, 50, 100, 150, 200, 250, 300},
+//        {4000, 4000, 4000, 4000, 4000, 4000, 4000}
+//    },
+//    {
+//        // Line 3: Sharp drop (tests vertical resolution and line break smoothness)
+//        {0, 10, 20, 30, 40, 50},
+//        {2000, 1500, 1000, 500, 10, -1000}
+//    },
+//    {
+//        // Line 4: Negative curve (tests bottom quadrant and axis flipping)
+//        {0, 10, 20, 30, 40, 50, 60},
+//        {0, -10, -30, -60, -100, -150, -210}
+//    },
+//    {
+//        // Line 5: Flat line near zero (precision check)
+//        {0, 50, 100, 150, 200, 250, 300},
+//        {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1}
+//    },
     {
         // Line 6: Zig-zag/jagged pattern (tests rendering of rapid direction change)
         {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50},
@@ -112,7 +112,7 @@ public boolean isOpen = true;
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         
-        GUI.changeOpenD();
+        GUI.changeOpenG();
         setVisible(false);
         
     }//GEN-LAST:event_closeButtonActionPerformed

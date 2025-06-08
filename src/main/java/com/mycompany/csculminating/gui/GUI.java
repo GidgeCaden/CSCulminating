@@ -31,12 +31,33 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         
-        double[][][] e = new double[0][0][0];
+        double[][][] testData = {{
+        { // Index 0: Time values
+            0.0, 0.016, 0.032, 0.048, 0.064, 0.080, 0.096, 0.112, 0.128, 0.144,
+            0.160, 0.176, 0.192, 0.208, 0.224, 0.240, 0.256, 0.272, 0.288, 0.304
+        },
+        { // Index 1: Position 1 (Cart 1, moving right)
+            50.0, 53.2, 56.5, 59.9, 63.4, 67.0, 70.7, 74.5, 78.4, 82.4,
+            86.5, 90.7, 95.0, 99.4, 103.9, 108.5, 113.2, 118.0, 122.9, 127.9
+        },
+        { // Index 2: filler (unused or velocity)
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        },
+        { // Index 3: filler (unused or velocity)
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        },
+        { // Index 4: Position 2 (Cart 2, moving left)
+            200.0, 196.8, 193.5, 190.1, 186.6, 183.0, 179.3, 175.5, 171.6, 167.6,
+            163.5, 159.3, 155.0, 150.6, 146.1, 141.5, 136.8, 132.0, 127.1, 122.1
+        }
+    }};
         
         Cart cart1 = new Cart(1, -1, 150);
         Cart cart2 = new Cart(1, 1, 60);
         
-        SimulationPanel idea = new SimulationPanel(e, "e", true, cart1, cart2, AnimPlaceHolder);
+        SimulationPanel idea = new SimulationPanel(testData, "pe", true, cart1, cart2, AnimPlaceHolder);
         AnimPlaceHolder.add(idea, BorderLayout.CENTER);
         idea.startSimulation();
         

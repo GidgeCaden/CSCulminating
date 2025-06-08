@@ -160,8 +160,6 @@ public class GraphPanel extends JPanel{
     private void calculateScales(double[][][] data)
     {
         this.maxValues = getMaxValues(data);
-        System.out.println(maxValues[0]);
-        System.out.println(maxValues[1]);
         this.xScale = (panelWidth - 2 * padding) / (maxValues[0] - maxValues[2]);
         this.yScale = (panelHeight - 2 * padding) / (maxValues[1] - maxValues[3]);
     }

@@ -112,7 +112,7 @@ public boolean isOpen = true;
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         
-        //GUI.changeOpen();
+        GUI.changeOpenD();
         setVisible(false);
         
     }//GEN-LAST:event_closeButtonActionPerformed

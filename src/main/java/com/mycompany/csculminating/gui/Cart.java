@@ -14,11 +14,11 @@ public class Cart {
     private double velocity;
     private double position;
     
-    public Cart(double mass, double velocity)
+    public Cart(double mass, double velocity, double position)
     {
         this.mass = Math.abs(mass);
         this.velocity = velocity;
-        this.position = 100;
+        this.position = position;
     }
     
     //Accessor Method

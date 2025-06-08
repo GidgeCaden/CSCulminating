@@ -9,8 +9,7 @@ package com.mycompany.csculminating.gui;
  * @author caden
  */
 public class DataPage extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DataPage.class.getName());
+    public boolean isOpen = true;
 
     /**
      * Creates new form DataPage
@@ -69,7 +68,7 @@ public class DataPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_closeButtonActionPerformed
 
-    /**
+        /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -85,15 +84,28 @@ public class DataPage extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DataPage().setVisible(true));
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new GraphPage().setVisible(true);
+            }
+        });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CloseButtonBorder;
     private javax.swing.JLabel TitleScreen1;

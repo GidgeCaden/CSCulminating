@@ -4,6 +4,7 @@
  */
 package com.mycompany.csculminating.gui;
 
+import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -29,6 +30,16 @@ public class GUI extends javax.swing.JFrame {
     
     public GUI() {
         initComponents();
+        
+        double[][][] e = new double[0][0][0];
+        
+        Cart cart1 = new Cart(1, -1, 150);
+        Cart cart2 = new Cart(1, 1, 60);
+        
+        SimulationPanel idea = new SimulationPanel(e, "e", true, cart1, cart2, AnimPlaceHolder);
+        AnimPlaceHolder.add(idea, BorderLayout.CENTER);
+        idea.startSimulation();
+        
     }
 
     public static void changeOpenG()
@@ -62,17 +73,17 @@ public class GUI extends javax.swing.JFrame {
         InputButton = new javax.swing.JButton();
         TitleScreen1 = new javax.swing.JLabel();
         TitleScreen2 = new javax.swing.JLabel();
-        AnimPlaceHolder = new javax.swing.JPanel();
-        temp = new javax.swing.JLabel();
         SimButtonBorder = new javax.swing.JPanel();
         GraphButtonBorder = new javax.swing.JPanel();
         DataButtonBorder = new javax.swing.JPanel();
         InputButtonBorder = new javax.swing.JPanel();
+        AnimPlaceHolder = new javax.swing.JPanel();
+        temp = new javax.swing.JLabel();
+        AnimBorder = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(620, 700));
-        setPreferredSize(new java.awt.Dimension(620, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -131,13 +142,6 @@ public class GUI extends javax.swing.JFrame {
         TitleScreen2.setText("Simulator");
         getContentPane().add(TitleScreen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
 
-        AnimPlaceHolder.setBackground(new java.awt.Color(204, 204, 204));
-
-        temp.setText("Insert Animation Here");
-        AnimPlaceHolder.add(temp);
-
-        getContentPane().add(AnimPlaceHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 300, 140));
-
         SimButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
         getContentPane().add(SimButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 498, 184, 44));
 
@@ -149,6 +153,17 @@ public class GUI extends javax.swing.JFrame {
 
         InputButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
         getContentPane().add(InputButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 578, 584, 34));
+
+        AnimPlaceHolder.setBackground(new java.awt.Color(204, 204, 204));
+
+        temp.setText("Insert Animation Here");
+        AnimPlaceHolder.add(temp);
+
+        getContentPane().add(AnimPlaceHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 300, 140));
+
+        AnimBorder.setBackground(new java.awt.Color(153, 153, 153));
+        AnimBorder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(AnimBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 268, 304, 144));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -217,6 +232,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AnimBorder;
     private javax.swing.JPanel AnimPlaceHolder;
     private javax.swing.JButton DataButton;
     private javax.swing.JPanel DataButtonBorder;

@@ -18,58 +18,65 @@ public class ImportFile {
    
     public double[][] graphData;
     
+    public double[] time;
+    public double[] pos1;
+    public double[] pos2;
+    public double[] vel1;
+    public double[] vel2;
+    public double[] acc1;
+    public double[] acc2;
     
-    public static void findFile(){
+    public double[][] data;
     
-    JFileChooser fileChooser = new JFileChooser();
+    public ImportFile(File file)
+    {
+        findFile(file);
+    }
 
-        int response = fileChooser.showOpenDialog(null); // select the file to open
+    private void findFile(File file) {
+        if (file == null) return;
 
-        if (response == JFileChooser.APPROVE_OPTION) {
-            File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+        List<double[]> dataList = new ArrayList<>();
 
-            String csvFile = file.getAbsolutePath();
-            BufferedReader reader = null;
-            String line = "";
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
 
-            List<double[]> dataList = new ArrayList<>();
+            // Skip header if necessary
+            reader.readLine(); // assumes header row
 
-            try {
-                reader = new BufferedReader(new FileReader(csvFile));
-                while ((line = reader.readLine()) != null) {
-                    String[] row = line.split(",");
-
-                    double[] doubleRow = new double[row.length];
-                    for (int i = 0; i < row.length; i++) {
-                        doubleRow[i] = Double.parseDouble(row[i].trim());
-                    }
-
-                    dataList.add(doubleRow);
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(",");
+                double[] doubleRow = new double[row.length];
+                for (int i = 0; i < row.length; i++) {
+                    doubleRow[i] = Double.parseDouble(row[i].trim());
                 }
-
-                // Convert to 2D array
-                double[][] dataArray = new double[dataList.size()][];
-                for (int i = 0; i < dataList.size(); i++) {
-                    dataArray[i] = dataList.get(i);
-                }
-
-                // Optional: print the 2D array to verify
-                for (double[] row : dataArray) {
-                    for (double val : row) {
-                        System.out.printf("%-10.2f", val);
-                    }
-                    System.out.println();
-                }
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (reader != null) reader.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                dataList.add(doubleRow);
             }
+
+            int numRows = dataList.size();
+            time = new double[numRows];
+            pos1 = new double[numRows];
+            vel1 = new double[numRows];
+            acc1 = new double[numRows];
+            pos2 = new double[numRows];
+            vel2 = new double[numRows];
+            acc2 = new double[numRows];
+
+            for (int i = 0; i < numRows; i++) {
+                double[] row = dataList.get(i);
+                time[i] = row[0];
+                pos1[i] = row[1];
+                vel1[i] = row[2];
+                acc1[i] = row[3];
+                pos2[i] = row[4];
+                vel2[i] = row[5];
+                acc2[i] = row[6];
+            }
+
+            graphData = new double[][] { time, pos1, vel1, acc1, pos2, vel2, acc2 };
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

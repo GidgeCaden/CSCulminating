@@ -17,8 +17,15 @@ public class SimPage extends javax.swing.JFrame {
     /**
      * Creates new form SimPage
      */
-    public SimPage() {
+    private ImportFile data;
+    /**
+     * Creates new form SimPage
+     */
+    public SimPage(ImportFile importFile) {
         initComponents();
+        this.data = importFile; // Store it
+
+        double[][] simData = importFile.graphData; // access the 2D array
         
         double[][] testData = {
         { // Index 0: Time values
@@ -117,7 +124,7 @@ public class SimPage extends javax.swing.JFrame {
         Cart cart1 = new Cart(1, -1, 150);
         Cart cart2 = new Cart(1, 1, 60);
         
-        SimulationPanel idea = new SimulationPanel(testData, "pe", false, cart1, cart2, tempSim);
+        SimulationPanel idea = new SimulationPanel(simData, "pe", false, cart1, cart2, tempSim);
         tempSim.add(idea, BorderLayout.CENTER);
         idea.startSimulation();
     }
@@ -137,9 +144,7 @@ public class SimPage extends javax.swing.JFrame {
         tempSim = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(620, 700));
         setMinimumSize(new java.awt.Dimension(620, 700));
-        setPreferredSize(new java.awt.Dimension(620, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -211,7 +216,7 @@ public class SimPage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new SimPage().setVisible(true));
+       // java.awt.EventQueue.invokeLater(() -> new SimPage().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,13 +5,7 @@
 package com.mycompany.csculminating.gui;
 
 import java.awt.BorderLayout;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.lang.model.SourceVersion;
 import javax.swing.JFileChooser;
 
 /**
@@ -26,10 +20,15 @@ public class GUI extends javax.swing.JFrame {
     public static boolean isOpenG = false;
     public static boolean isOpenS = false;
     public static boolean isOpenD = false;
+    
+    private ImportFile importedData;
 
     
     public GUI() {
         initComponents();
+        
+        errorTextFieldS.setVisible(false);
+        errorTextFieldG.setVisible(false);
         
         double[][] testData = {
         { // Index 0: Time values
@@ -55,7 +54,8 @@ public class GUI extends javax.swing.JFrame {
     };
         
         Cart cart1 = new Cart(1, -1, 150);
-        Cart cart2 = new Cart(1, 1, 60);
+        Cart cart2 = new Cart(1, 2, 60);
+        
         
         SimulationPanel idea = new SimulationPanel(testData, "pe", true, cart1, cart2, AnimPlaceHolder);
         AnimPlaceHolder.add(idea, BorderLayout.CENTER);
@@ -101,6 +101,8 @@ public class GUI extends javax.swing.JFrame {
         AnimPlaceHolder = new javax.swing.JPanel();
         temp = new javax.swing.JLabel();
         AnimBorder = new javax.swing.JPanel();
+        errorTextFieldS = new javax.swing.JTextField();
+        errorTextFieldG = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -186,39 +188,50 @@ public class GUI extends javax.swing.JFrame {
         AnimBorder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(AnimBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 268, 304, 144));
 
+        errorTextFieldS.setText("error stuff");
+        getContentPane().add(errorTextFieldS, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 150, -1));
+
+        errorTextFieldG.setText("error stuff");
+        getContentPane().add(errorTextFieldG, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 550, 150, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void SimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimButtonActionPerformed
       
-        SimPage openS = new SimPage();
-        if(!isOpenS)
-        {
-            openS.setVisible(true);
-            isOpenS = !isOpenS;
-        }
-        
-        
+        if (!isOpenS && importedData != null) {
+      SimPage openS = new SimPage(importedData); // ✅ send proper data
+      openS.setVisible(true);
+      isOpenS = true;
+      errorTextFieldS.setVisible(false);
+      } else if (importedData == null) {
+          errorTextFieldS.setVisible(true);
+          errorTextFieldS.setText("Please select a file first.");
+      }
         
     }//GEN-LAST:event_SimButtonActionPerformed
 
     private void GraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraphButtonActionPerformed
-      
-        GraphPage openG = new GraphPage();
-        if(!isOpenG)
-        {
-            openG.setVisible(true);
-            isOpenG = !isOpenG;
-        }
-        
-        
-        
+    
+         if (!isOpenG && importedData != null) {
+      GraphPage openG = new GraphPage(importedData); // ✅ send proper data
+      openG.setVisible(true);
+      isOpenG = true;
+      errorTextFieldG.setVisible(false);
+      } else if (importedData == null) {
+          errorTextFieldG.setVisible(true);
+          errorTextFieldG.setText("Please select a file first.");
+      }
     }//GEN-LAST:event_GraphButtonActionPerformed
 
     private void InputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputButtonActionPerformed
         
-        ImportFile.findFile();
-        
+        JFileChooser chooser = new JFileChooser();
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            ImportFile importedData = new ImportFile(file); // Pass file to constructor
+            this.importedData = importedData;
+        }
     }//GEN-LAST:event_InputButtonActionPerformed
 
     private void DataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataButtonActionPerformed
@@ -265,6 +278,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel SimButtonBorder;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JLabel TitleScreen2;
+    private javax.swing.JTextField errorTextFieldG;
+    private javax.swing.JTextField errorTextFieldS;
     private javax.swing.JLabel temp;
     // End of variables declaration//GEN-END:variables
 }

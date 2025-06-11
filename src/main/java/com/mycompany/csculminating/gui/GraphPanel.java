@@ -69,14 +69,14 @@ public class GraphPanel extends JPanel{
         //Creates an AffineTransform Object
         AffineTransform original = g2.getTransform();
         //Draws Each Graph in the Data Array
-        for(int k = 0; k < data.length; k++)
+        for(int k = 1; k < data.length; k++)
         {
             //Draws Connected Lines Between all the Points in the Graph
             for(int i = 1; i < data[0].length; i++)
             {      
                 //Sets a Distinct Color for Each Graph Based on the Data's Index
                 g2.setColor(Color.getHSBColor((float) k / data.length, 1.0f, 1.0f));
-                g2.draw(new Line2D.Double((data[0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[1][i - 1] - maxValues[3]) * yScale, (data[0][i] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[1][i] - maxValues[3]) * yScale));
+                g2.draw(new Line2D.Double((data[0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][i - 1] - maxValues[3]) * yScale, (data[0][i] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][i] - maxValues[3]) * yScale));
             }
         }
         //Draws the x and y Axis Text
@@ -124,23 +124,26 @@ public class GraphPanel extends JPanel{
         double tempMaxY = data[1][0];
         double tempMinX = data[0][0];
         double tempMinY = data[1][0];
-        for(int i = 0; i < data[0].length; i++)
+        for(int k = 1; k <= data.length - 1; k++)
         {
-            if(data[0][i] > tempMaxX)
+            for(int i = 0; i < data[0].length; i++)
             {
-                tempMaxX = data[0][i];
-            }
-            else if(data[0][i] < tempMinX)
-            {
-                tempMinX = data[0][i];
-            }
-            if(data[1][i] > tempMaxY)
-            {
-                tempMaxY = data[1][i];
-            }
-            else if(data[1][i] < tempMinY)
-            {
-                tempMinY = data[1][i];
+                if(data[0][i] > tempMaxX)
+                {
+                    tempMaxX = data[0][i];
+                }
+                else if(data[0][i] < tempMinX)
+                {
+                    tempMinX = data[0][i];
+                }
+                if(data[k][i] > tempMaxY)
+                {
+                    tempMaxY = data[k][i];
+                }
+                else if(data[k][i] < tempMinY)
+                {
+                    tempMinY = data[k][i];
+                }
             }
         }
         xyValues[0] = tempMaxX;
@@ -157,7 +160,7 @@ public class GraphPanel extends JPanel{
     private void calculateScales(double[][] data)
     {
         this.maxValues = getMaxValues(data);
-        this.xScale = (panelWidth - 2 * padding) / (maxValues[0] - maxValues[2]);
-        this.yScale = (panelHeight - 2 * padding) / (maxValues[1] - maxValues[3]);
+        this.xScale = (panelWidth - 2 * padding) / ((maxValues[0] - maxValues[2]));
+        this.yScale = (panelHeight - 2 * padding) / ((maxValues[1] - maxValues[3]));
     }
 }

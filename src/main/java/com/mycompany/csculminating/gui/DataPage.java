@@ -4,6 +4,8 @@
  */
 package com.mycompany.csculminating.gui;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author caden
@@ -16,6 +18,9 @@ public class DataPage extends javax.swing.JFrame {
      */
     public DataPage() {
         initComponents();
+        
+        DataPanel intro = new DataPanel(dataStuff, "goopgoop");
+        dataStuff.add(intro, BorderLayout.CENTER);
     }
 
     /**
@@ -30,11 +35,12 @@ public class DataPage extends javax.swing.JFrame {
         closeButton = new javax.swing.JButton();
         CloseButtonBorder = new javax.swing.JPanel();
         TitleScreen1 = new javax.swing.JLabel();
+        dataStuff = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(620, 700));
         setMinimumSize(new java.awt.Dimension(620, 700));
-        setPreferredSize(new java.awt.Dimension(620, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -57,6 +63,22 @@ public class DataPage extends javax.swing.JFrame {
         TitleScreen1.setText("Collision Data ");
         TitleScreen1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(TitleScreen1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 600, -1));
+        getContentPane().add(dataStuff, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 440, 30));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 590, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -65,7 +87,7 @@ public class DataPage extends javax.swing.JFrame {
 
         GUI.changeOpenD();
         setVisible(false);
-
+    
     }//GEN-LAST:event_closeButtonActionPerformed
 
         /**
@@ -101,7 +123,7 @@ public class DataPage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GraphPage().setVisible(true);
+                //new GraphPage().setVisible(true);
             }
         });
     }
@@ -110,5 +132,8 @@ public class DataPage extends javax.swing.JFrame {
     private javax.swing.JPanel CloseButtonBorder;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JButton closeButton;
+    private javax.swing.JPanel dataStuff;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,33 +11,18 @@ import java.awt.BorderLayout;
  * @author CaGid4274
  */
 public class GraphPage extends javax.swing.JFrame {
-public boolean isOpen = true;
+    public boolean isOpen = true;
+    private ImportFile data;
     /**
      * Creates new form GraphPage
      */
-    public GraphPage() {
+    public GraphPage(ImportFile importFile) {
         initComponents();
-        double[][] dataSet = {
-//        // Line 1: Steep exponential curve
-//        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100},
-//        {1, 10, 100, 300, 600, 1000, 1500, 2100, 2800, 3600, 4500}
-//        // Line 2: Horizontal line at large y (tests horizontal drawing & top Y limit)
-//        {0, 50, 100, 150, 200, 250, 300},
-//        {4000, 4000, 4000, 4000, 4000, 4000, 4000}
-//        // Line 3: Sharp drop (tests vertical resolution and line break smoothness)
-//        {0, 10, 20, 30, 40, 50},
-//        {2000, 1500, 1000, 500, 10, -1000}
-//        // Line 4: Negative curve (tests bottom quadrant and axis flipping)
-//        {0, 10, 20, 30, 40, 50, 60},
-//        {0, -10, -30, -60, -100, -150, -210}
-//        // Line 5: Flat line near zero (precision check)
-//        {0, 50, 100, 150, 200, 250, 300},
-//        {0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1}
-        // Line 6: Zig-zag/jagged pattern (tests rendering of rapid direction change)
-        {0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50},
-        {0, 100, -100, 100, -100, 100, -100, 100, -100, 100, -100}
-    };
-        GraphPanel intro = new GraphPanel(dataSet, tempGraph);
+        this.data = importFile; // Store it
+
+        double[][] graphData = importFile.graphData; // access the 2D array
+        
+        GraphPanel intro = new GraphPanel(graphData, tempGraph);
         tempGraph.add(intro, BorderLayout.CENTER);
     }
 
@@ -138,7 +123,7 @@ public boolean isOpen = true;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GraphPage().setVisible(true);
+                //new GraphPage(this.data).setVisible(true);
             }
         });
     }

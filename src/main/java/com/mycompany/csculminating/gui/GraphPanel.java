@@ -77,7 +77,7 @@ public class GraphPanel extends JPanel{
                 //Sets a Distinct Color for Each Graph Based on the Data's Index
                 g2.setColor(Color.getHSBColor((float) k / data.length, 1.0f, 1.0f));
                 g2.draw(new Line2D.Double((data[0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][i - 1] - maxValues[3]) * yScale, (data[0][i] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][i] - maxValues[3]) * yScale));
-            }
+            }    
         }
         //Draws the x and y Axis Text
         //Draw x-Axis Ticks and Labels
@@ -101,13 +101,43 @@ public class GraphPanel extends JPanel{
         g2.setColor(Color.BLACK);
         g2.setFont(new Font("SansSerif", Font.BOLD, 12));
         //Draw "Graph Title" Label Centered Under the Graph
-        g2.drawString("Graph Title", (int)(panelWidth / 2) - 40, 20);
+        g2.drawString("CSV.csv", (int)(panelWidth / 2) - 40, 20);
         //Draw "X Axis" Label Centered Under the Graph
-        g2.drawString("X Axis", (int)(panelWidth / 2) - 20, (int)(panelHeight - 5));
+        g2.drawString("Time(s)", (int)(panelWidth / 2) - 20, (int)(panelHeight - 5));
         //Draw "Y Axis" Label Rotated Vertically on the Left
         g2.rotate(-Math.PI / 2);
         g2.drawString("Y Axis", (int)(-panelHeight / 2) - 20, 15);
         g2.setTransform(original); // Reset rotation
+        int legendX = (int)(panelWidth - padding - 150);
+        int legendY = padding;
+
+        g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        g2.setColor(Color.BLACK);
+        g2.drawString("Legend:", legendX, legendY + 5);
+
+            for (int k = 1; k < data.length; k++) {
+                // Choose color same as for the graph line
+                Color lineColor = Color.getHSBColor((float) k / data.length, 1.0f, 1.0f);
+                g2.setColor(lineColor);
+
+                // Draw colored line or box
+                g2.fillRect(legendX, legendY + 15 * k, 10, 10); // small square
+
+                // Draw the label
+                g2.setColor(Color.BLACK);
+                if(k == 1)
+                    g2.drawString("Data Set 1:Position G(m)", legendX + 15, legendY + 15 * k + 10); // label next to square
+                else if(k == 2)
+                    g2.drawString("Data Set 1:Velocity G(m/s)", legendX + 15, legendY + 15 * k + 10); // label next to square
+                else if(k == 3)
+                    g2.drawString("Data Set 1:Acceleration G(m/s²)", legendX + 15, legendY + 15 * k + 10); // label next to square
+                else if(k == 4)
+                    g2.drawString("Data Set 1:Position Y(m", legendX + 15, legendY + 15 * k + 10); // label next to square
+                else if(k == 5)
+                    g2.drawString("Data Set 1:Velocity Y(m/s)", legendX + 15, legendY + 15 * k + 10); // label next to square
+                else if(k == 6)
+                    g2.drawString("Data Set 1:Acceleration Y(m/s²)", legendX + 15, legendY + 15 * k + 10); // label next to square
+            }
     }
     
     //Finds the Max Value of the X-Axis and Y-Axis
@@ -160,7 +190,8 @@ public class GraphPanel extends JPanel{
     private void calculateScales(double[][] data)
     {
         this.maxValues = getMaxValues(data);
-        this.xScale = (panelWidth - 2 * padding) / ((maxValues[0] - maxValues[2]));
+        int legendSpace = 140; // space to reserve on the right
+        this.xScale = (panelWidth - 2 * padding - legendSpace) / ((maxValues[0] - maxValues[2]));
         this.yScale = (panelHeight - 2 * padding) / ((maxValues[1] - maxValues[3]));
     }
 }

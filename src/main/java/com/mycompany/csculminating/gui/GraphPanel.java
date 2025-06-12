@@ -20,7 +20,7 @@ public class GraphPanel extends JPanel{
     //3D Array Storing Multimple Graphs (Each With x and y Arrays)
     private double[][] data;
     //Panel Dimensions
-    private double panelWidth;
+    private static double panelWidth;
     private double panelHeight;
     //Axis Names
     private String xAxis;

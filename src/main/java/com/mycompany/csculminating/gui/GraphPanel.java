@@ -9,10 +9,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import javax.swing.JPanel;
-
 /**
  *
  * @author CoBra1341
@@ -35,7 +33,6 @@ public class GraphPanel extends JPanel{
     //Padding Around the Graph
     private static final int  padding = 40;
     private static final int  graphOffSetX = 20;
-    
     /* 
     * Creates a Graph Panel Object
     * @param data 3D Array Where Each 2D Array Represents a Graph's x and y Data
@@ -53,7 +50,6 @@ public class GraphPanel extends JPanel{
         //Calculate Scaling For Each Graph (Note: Currently Only Uses the First Data Set)
         calculateScales(this.data);
     }
-    
     //Paints the Graph
     /*
     * Called Automatically When the Panel Needs to be Redrawn
@@ -66,8 +62,6 @@ public class GraphPanel extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         //Calls the Superclass to Ensure Proper Rendering
         super.paintComponent(g);
-        //Creates an AffineTransform Object
-        AffineTransform original = g2.getTransform();
         //Draws Each Graph in the Data Array
         for(int k = 1; k < data.length; k++)
         {
@@ -107,23 +101,19 @@ public class GraphPanel extends JPanel{
         //Draw "Y Axis" Label Rotated Vertically on the Left
         g2.rotate(-Math.PI / 2);
         g2.drawString("Y Axis", (int)(-panelHeight / 2) - 20, 15);
-        g2.setTransform(original); // Reset rotation
-        int legendX = (int)(panelWidth - padding - 150);
+        g2.rotate(-3*Math.PI / 2); //Reset Rotation
+        int legendX = (int)(panelWidth - padding - 140);
         int legendY = padding;
-
         g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
         g2.setColor(Color.BLACK);
         g2.drawString("Legend:", legendX, legendY + 5);
-
             for (int k = 1; k < data.length; k++) {
-                // Choose color same as for the graph line
+                //Choose Color Same as for the Graph Line
                 Color lineColor = Color.getHSBColor((float) k / data.length, 1.0f, 1.0f);
                 g2.setColor(lineColor);
-
-                // Draw colored line or box
+                //Draw Colored Line or Box
                 g2.fillRect(legendX, legendY + 15 * k, 10, 10); // small square
-
-                // Draw the label
+                //Draws the Labels
                 g2.setColor(Color.BLACK);
                 if(k == 1)
                     g2.drawString("Data Set 1:Position G(m)", legendX + 15, legendY + 15 * k + 10); // label next to square
@@ -139,7 +129,6 @@ public class GraphPanel extends JPanel{
                     g2.drawString("Data Set 1:Acceleration Y(m/s²)", legendX + 15, legendY + 15 * k + 10); // label next to square
             }
     }
-    
     //Finds the Max Value of the X-Axis and Y-Axis
     /*
     * Finds the Maximum x and y Values in a 2D Dataset
@@ -182,7 +171,6 @@ public class GraphPanel extends JPanel{
         xyValues[3] = tempMinY;
         return xyValues;
     }
-    
     /*
     * Calculates the Scaling Factors Based on a Given Graph's Max x and y values
     * @param array2D An Index of the 2D Graph data to use for Scale Calculation
@@ -190,8 +178,7 @@ public class GraphPanel extends JPanel{
     private void calculateScales(double[][] data)
     {
         this.maxValues = getMaxValues(data);
-        int legendSpace = 140; // space to reserve on the right
-        this.xScale = (panelWidth - 2 * padding - legendSpace) / ((maxValues[0] - maxValues[2]));
+        this.xScale = (panelWidth - 2 * padding - 140) / ((maxValues[0] - maxValues[2]));// space to reserve on the right
         this.yScale = (panelHeight - 2 * padding) / ((maxValues[1] - maxValues[3]));
     }
 }

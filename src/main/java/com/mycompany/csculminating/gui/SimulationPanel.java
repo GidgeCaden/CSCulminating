@@ -18,20 +18,24 @@ import javax.swing.Timer;
  * @author 1337
  */
 public class SimulationPanel extends JPanel{
-    
+    //Data From CSV Holder
     private double data[][];
+    //Contains the Collision Type
     private String collisionType;
+    //Contains the Type of Simulation Being Run
     private boolean useCartMode;
-    
+    //Panel Dimensions
     private double panelWidth;
     private double panelHeight;
-    
+    //Holds Cart1 and Cart2 x-Positions
     private Cart cart1X;
     private Cart cart2X;
-    
+    //Creats a Timer and Frame Counter 
     private double time = 0;
     private Timer timer;
     private int frameIndex = 0;
+    //Centimeter to Meter Conversion Value
+    private static final double conversion = 100;
     
     public SimulationPanel(double[][] data, String collisionType, boolean useCartMode, Cart cart1, Cart cart2, JPanel panel)
     {
@@ -91,10 +95,13 @@ public class SimulationPanel extends JPanel{
         {
             frameIndex++;
         }
+        else if(frameIndex >= data[0].length - 1)
+        {
+            stopSimulation();
+        }
         
         repaint();
     }
-    
     @Override
     protected void paintComponent(Graphics g)
     {
@@ -102,88 +109,80 @@ public class SimulationPanel extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         //Calls the Superclass to Ensure Proper Rendering
         super.paintComponent(g);
-        
         if(useCartMode)
         {
-            if(collisionType.equals("pe"))
-            {
-                if(cart1X.getPosition() + 50 > cart2X.getPosition() && cart1X.getPosition() < cart2X.getPosition() + 50)
-                {
-                    double v1 = Physics.perfectlyElasticV1(cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
-                    double v2 = Physics.perfectlyElasticV2(cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
-                    cart1X.setVelocity(v1);
-                    cart2X.setVelocity(v2);
+            switch (collisionType) {
+                case "pe" -> {
+                    if(cart1X.getPosition() + 50 > cart2X.getPosition() && cart1X.getPosition() < cart2X.getPosition() + 50)
+                    {
+                        double v1 = Physics.perfectlyElasticV1(cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
+                        double v2 = Physics.perfectlyElasticV2(cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
+                        cart1X.setVelocity(v1);
+                        cart2X.setVelocity(v2);
+                    }   if(cart1X.getPosition() + 50 >= panelWidth)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                    }
+                    else if(cart1X.getPosition() <= 0)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                    }   if(cart2X.getPosition() + 50 >= panelWidth)
+                    {
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
+                    else if(cart2X.getPosition() <= 0)
+                    {
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
                 }
-                if(cart1X.getPosition() + 50 >= panelWidth)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
+                case "e" -> {
+                    if(cart1X.getPosition() + 50 > cart2X.getPosition() && cart1X.getPosition() < cart2X.getPosition() + 50)
+                    {
+                        double v1 = Physics.inElasticV1(0.5, cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
+                        double v2 = Physics.inElasticV2(0.5, cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
+                        cart1X.setVelocity(v1);
+                        cart2X.setVelocity(v2);
+                    }   if(cart1X.getPosition() + 50 >= panelWidth)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                    }
+                    else if(cart1X.getPosition() <= 0)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                    }   if(cart2X.getPosition() + 50 >= panelWidth)
+                    {
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
+                    else if(cart2X.getPosition() <= 0)
+                    {
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
                 }
-                else if(cart1X.getPosition() <= 0)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());;
-                }
-                if(cart2X.getPosition() + 50 >= panelWidth)
-                {
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-                else if(cart2X.getPosition() <= 0)
-                {
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-            }
-            else if(collisionType.equals("e"))
-            {
-                if(cart1X.getPosition() + 50 > cart2X.getPosition() && cart1X.getPosition() < cart2X.getPosition() + 50)
-                {
-                    double v1 = Physics.inElasticV1(0.5, cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
-                    double v2 = Physics.inElasticV2(0.5, cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
-                    cart1X.setVelocity(v1);
-                    cart2X.setVelocity(v2);
-                }
-                if(cart1X.getPosition() + 50 >= panelWidth)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
-                }
-                else if(cart1X.getPosition() <= 0)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
-                }
-                if(cart2X.getPosition() + 50 >= panelWidth)
-                {
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-                else if(cart2X.getPosition() <= 0)
-                {
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-                }
-            else
-            {
-                if(cart1X.getPosition() + 50 > cart2X.getPosition() && cart1X.getPosition() < cart2X.getPosition() + 50)
-                {
-                    double vCombination = Physics.perfectlyinElastic(cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
-                    cart1X.setVelocity(vCombination);
-                    cart2X.setVelocity(vCombination);
-                }
-                if(cart1X.getPosition() + 50 >= panelWidth)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-                else if(cart1X.getPosition() <= 0)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-                if(cart2X.getPosition() + 50 >= panelWidth)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
-                }
-                else if(cart2X.getPosition() <= 0)
-                {
-                    cart1X.setVelocity(-1 * cart1X.getVelocity());
-                    cart2X.setVelocity(-1 * cart2X.getVelocity());
+                default -> {
+                    if(cart1X.getPosition() + 50 > cart2X.getPosition() && cart1X.getPosition() < cart2X.getPosition() + 50)
+                    {
+                        double vCombination = Physics.perfectlyinElastic(cart1X.getMass(), cart1X.getVelocity(), cart2X.getMass(), cart2X.getVelocity());
+                        cart1X.setVelocity(vCombination);
+                        cart2X.setVelocity(vCombination);
+                    }   if(cart1X.getPosition() + 50 >= panelWidth)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
+                    else if(cart1X.getPosition() <= 0)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }   if(cart2X.getPosition() + 50 >= panelWidth)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
+                    else if(cart2X.getPosition() <= 0)
+                    {
+                        cart1X.setVelocity(-1 * cart1X.getVelocity());
+                        cart2X.setVelocity(-1 * cart2X.getVelocity());
+                    }
                 }
             }
             cart1X.setPosition(cart1X.getPosition() + cart1X.getVelocity());
@@ -196,30 +195,24 @@ public class SimulationPanel extends JPanel{
         }
         else
         {
-            g2.setColor(Color.BLACK);
-            g2.drawString("Graphing mode not implemented yet", 50, 50);
             double[] minMax = posMinMax();
             double min = Math.min(minMax[0], minMax[2]);
             double max = Math.max(minMax[1], minMax[3]);
-
-            double range = max - min;
+            double range = conversion * (max - min);
             if (range == 0) 
             {
-                range = 1; // Prevent division by zero
+                range = 1; //Prevent division by zero
             }
-
-            double xScale = (getWidth() - 2 * 50) / range;
-
+            double xScale = Math.abs((getWidth()) / (2 *range));
             // Draw current positions only
-            double pos1 = data[1][frameIndex];
-            double pos2 = data[4][frameIndex];
+            double pos1 = -10 * (data[1][frameIndex] - minMax[1]);
+            double pos2 = 10 * (data[4][frameIndex] - minMax[3]);
 
-            int pixelX1 = (int)((pos1 - min) * xScale) + 50;
-            int pixelX2 = (int)((pos2 - min) * xScale) + 50;
-
-            g2.setColor(Color.WHITE);
-            g2.fillRect(0, 0, getWidth(), getHeight());
-
+            int pixelX1 = (int)(pos1 * xScale) + getWidth()/2 - 25;
+            int pixelX2 = (int)(pos2 * xScale) + getWidth()/2 + 25;
+            g2.drawString(String.format("Scale: %.2f pixels/meter", Math.abs(getWidth() / (2 * range))), 10, 60);
+            g2.drawString(String.format("Collision at: %.2f m", (cart1X.getPosition() + cart2X.getPosition()) / 2 / conversion), 10, 80);
+            
             g2.setColor(Color.RED);
             g2.fillRect(pixelX1, getHeight()/2, 50, 50);
 

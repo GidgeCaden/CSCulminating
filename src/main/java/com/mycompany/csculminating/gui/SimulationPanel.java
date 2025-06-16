@@ -212,6 +212,7 @@ public class SimulationPanel extends JPanel{
             int pixelX2 = (int)(pos2 * xScale) + getWidth()/2 + 25;
             g2.drawString(String.format("Scale: %.2f pixels/meter", Math.abs(getWidth() / (2 * range))), 10, 60);
             g2.drawString(String.format("Collision at: %.2f m", (cart1X.getPosition() + cart2X.getPosition()) / 2 / conversion), 10, 80);
+            g2.drawString("Cart 1 Velocity: " + String.format("%.2f", -1 * data[2][frameIndex]) + " m/s | Cart 2 Velocity: " + String.format("%.2f", data[5][frameIndex]) + " m/s", 10, 20);
             
             g2.setColor(Color.RED);
             g2.fillRect(pixelX1, getHeight()/2, 50, 50);

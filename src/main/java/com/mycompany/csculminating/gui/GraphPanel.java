@@ -63,18 +63,22 @@ public class GraphPanel extends JPanel{
         //Calls the Superclass to Ensure Proper Rendering
         super.paintComponent(g);
         //Draws Each Graph in the Data Array
-        for(int k = 1; k < data.length; k++)
-        {
-            //Draws Connected Lines Between all the Points in the Graph
-            for(int i = 1; i < data[0].length; i++)
-            {      
-                //Sets a Distinct Color for Each Graph Based on the Data's Index
+        double zeroY = panelHeight / 2.0;
+
+        // Draw graphs
+        for (int k = 1; k < data.length; k++) {
+            for (int i = 1; i < data[0].length; i++) {
                 g2.setColor(Color.getHSBColor((float) k / data.length, 1.0f, 1.0f));
-                g2.draw(new Line2D.Double((data[0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][i - 1] - maxValues[3]) * yScale, (data[0][i] - maxValues[2]) * xScale + padding + graphOffSetX, (panelHeight - padding) - (data[k][i] - maxValues[3]) * yScale));
-            }    
+                g2.draw(new Line2D.Double(
+                    (data[0][i - 1] - maxValues[2]) * xScale + padding + graphOffSetX,
+                    zeroY - data[k][i - 1] * yScale,
+                    (data[0][i] - maxValues[2]) * xScale + padding + graphOffSetX,
+                    zeroY - data[k][i] * yScale
+                ));
+            }
         }
         //Draws the x and y Axis Text
-        //Draw x-Axis Ticks and Labels
+        // x-axis ticks
         int xTicks = 10;
         for (int i = 0; i <= xTicks; i++) {
             double xVal = maxValues[2] + i * (maxValues[0] - maxValues[2]) / xTicks;
@@ -83,11 +87,12 @@ public class GraphPanel extends JPanel{
             g2.drawLine(xPixel, (int)(panelHeight - padding), xPixel, (int)(panelHeight - padding + 5));
             g2.drawString(String.format("%.1f", xVal), xPixel - 10, (int)(panelHeight - padding + 20));
         }
-        //Draw y-Axis Ticks and Labels
+
+        // y-axis ticks
         int yTicks = 10;
-        for (int i = 0; i <= yTicks; i++) {
-            double yVal = maxValues[3] + i * (maxValues[1] - maxValues[3]) / yTicks;
-            int yPixel = (int)((panelHeight - padding) - (yVal - maxValues[3]) * yScale);
+        for (int i = -yTicks / 2; i <= yTicks / 2; i++) {
+            double yVal = i * (maxValues[1] / (yTicks / 2));
+            int yPixel = (int) (zeroY - yVal * yScale);
             g2.drawLine(padding - 5 + graphOffSetX, yPixel, padding + graphOffSetX, yPixel);
             g2.drawString(String.format("%.1f", yVal), padding - 40 + graphOffSetX, yPixel + 5);
         }
@@ -102,11 +107,11 @@ public class GraphPanel extends JPanel{
         g2.rotate(-Math.PI / 2);
         g2.drawString("Y Axis", (int)(-panelHeight / 2) - 20, 15);
         g2.rotate(-3*Math.PI / 2); //Reset Rotation
-        int legendX = (int)(panelWidth - padding - 140);
-        int legendY = padding;
+        int legendX = (int)(panelWidth - padding - 150);
+        int legendY = 20;
         g2.setFont(new Font("SansSerif", Font.PLAIN, 12));
         g2.setColor(Color.BLACK);
-        g2.drawString("Legend:", legendX, legendY + 5);
+        g2.drawString("Legend:", legendX, legendY);
             for (int k = 1; k < data.length; k++) {
                 //Choose Color Same as for the Graph Line
                 Color lineColor = Color.getHSBColor((float) k / data.length, 1.0f, 1.0f);
@@ -178,7 +183,7 @@ public class GraphPanel extends JPanel{
     private void calculateScales(double[][] data)
     {
         this.maxValues = getMaxValues(data);
-        this.xScale = (panelWidth - 2 * padding - 140) / ((maxValues[0] - maxValues[2]));// space to reserve on the right
-        this.yScale = (panelHeight - 2 * padding) / ((maxValues[1] - maxValues[3]));
+        this.xScale = (panelWidth - 2 * padding - 140) / (maxValues[0] - maxValues[2]);
+        this.yScale = (panelHeight - 2 * padding) / (2 * maxValues[1]); // center around 0
     }
 }

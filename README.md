@@ -21,9 +21,9 @@ The 1D Collision Simulator is a multipurpose simulation of momentumn collsions i
 ![image](https://github.com/user-attachments/assets/b8ae399f-efd1-45ba-9e21-f89b4c594581)
 ## Installation
 Simply download the zip and run the jar file found inside of the dist folder. 
-![Screenshot 2025-06-18 103931](https://github.com/user-attachments/assets/8236f3f5-a76c-4784-9199-917a97262cc0)
 ## How to Use
-Simply input a CSV file in this format (CSVs for this project were made using: image
+Simply input a CSV file in this format: (CSVs for this project were made using the graphical app): 
+![Screenshot 2025-06-18 103931](https://github.com/user-attachments/assets/8236f3f5-a76c-4784-9199-917a97262cc0)
 ## Technologies
 Java Maven 
 Java + Swing 

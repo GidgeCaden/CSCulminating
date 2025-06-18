@@ -4,6 +4,8 @@
  */
 package com.mycompany.csculminating.gui;
 
+import java.awt.BorderLayout;
+
 /**
  *
  * @author caden
@@ -12,11 +14,32 @@ public class SimPage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SimPage.class.getName());
 
+    
+    
     /**
      * Creates new form SimPage
      */
-    public SimPage() {
+    private ImportFile data;
+    private SimulationPanel simPanel;
+    /**
+     * Creates new form SimPage
+     */
+    public SimPage(ImportFile importFile) {
         initComponents();
+        this.data = importFile; // Store it
+        
+        SimSpeedSlider.setMaximum(500);
+        SimSpeedSlider.setMinimum(75);
+        SimSpeedSlider.setValue(325);
+        double[][] simData = importFile.graphData; // access the 2D array
+        
+        Cart cart1 = new Cart(1, -1, 150);
+        Cart cart2 = new Cart(1, 1, 60);
+        
+        SimulationPanel idea = new SimulationPanel(simData, "pe", false, cart1, cart2, tempSim);
+        this.simPanel = idea;
+        tempSim.add(idea, BorderLayout.CENTER);
+        idea.startSimulation();
     }
 
     /**
@@ -32,6 +55,12 @@ public class SimPage extends javax.swing.JFrame {
         CloseButtonBorder = new javax.swing.JPanel();
         TitleScreen1 = new javax.swing.JLabel();
         tempSim = new javax.swing.JPanel();
+        loopButton = new javax.swing.JButton();
+        loopButtonBorder = new javax.swing.JPanel();
+        pauseButton = new javax.swing.JButton();
+        pauseButtonBorder = new javax.swing.JPanel();
+        SimSpeedSlider = new javax.swing.JSlider();
+        SliderLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(620, 700));
@@ -76,6 +105,43 @@ public class SimPage extends javax.swing.JFrame {
 
         getContentPane().add(tempSim, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 230, 580, 300));
 
+        loopButton.setBackground(new java.awt.Color(204, 204, 204));
+        loopButton.setText("Reset");
+        loopButton.setBorder(null);
+        loopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loopButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(loopButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 570, 280, 30));
+
+        loopButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
+        loopButtonBorder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(loopButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 568, 284, 34));
+
+        pauseButton.setBackground(new java.awt.Color(204, 204, 204));
+        pauseButton.setText("Pause");
+        pauseButton.setBorder(null);
+        pauseButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pauseButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(pauseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 570, 280, 30));
+
+        pauseButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(pauseButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 568, 284, 34));
+
+        SimSpeedSlider.setMajorTickSpacing(1);
+        SimSpeedSlider.setMinimum(10);
+        SimSpeedSlider.setMinorTickSpacing(1);
+        SimSpeedSlider.setValue(250);
+        getContentPane().add(SimSpeedSlider, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 190, 580, -1));
+
+        SliderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SliderLabel.setText("Simulation Speed (Reset to Apply)");
+        getContentPane().add(SliderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 170, 580, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -85,6 +151,16 @@ public class SimPage extends javax.swing.JFrame {
         setVisible(false);
 
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void loopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopButtonActionPerformed
+        // TODO add your handling code here:
+        simPanel.resetFrameIndex(SimSpeedSlider.getValue());
+    }//GEN-LAST:event_loopButtonActionPerformed
+
+    private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
+        // TODO add your handling code here:
+        simPanel.pauseFrameIndex();
+    }//GEN-LAST:event_pauseButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,13 +184,20 @@ public class SimPage extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new SimPage().setVisible(true));
+       // java.awt.EventQueue.invokeLater(() -> new SimPage().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CloseButtonBorder;
+    private javax.swing.JSlider SimSpeedSlider;
+    private javax.swing.JLabel SliderLabel;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JButton closeButton;
+    private javax.swing.JButton loopButton;
+    private javax.swing.JPanel loopButtonBorder;
+    private javax.swing.JButton pauseButton;
+    private javax.swing.JPanel pauseButtonBorder;
     private javax.swing.JPanel tempSim;
     // End of variables declaration//GEN-END:variables
+
 }

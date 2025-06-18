@@ -11,23 +11,18 @@ import java.awt.BorderLayout;
  * @author CaGid4274
  */
 public class GraphPage extends javax.swing.JFrame {
-public boolean isOpen = true;
+    public boolean isOpen = true;
+    private ImportFile data;
     /**
      * Creates new form GraphPage
      */
-    public GraphPage() {
+    public GraphPage(ImportFile importFile) {
         initComponents();
-        double[][][] dataSet = {
-    {
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
-        {0, 5, 15, 30, 45, 55, 65, 70, 80, 95, 110, 125, 135, 140, 150, 165, 170, 180, 195, 200, 210, 225, 235, 245, 250, 260, 270, 275, 285, 295, 299}  // y-values
-    },
-    {
-        {0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300}, // x-values
-        {300, 295, 285, 270, 255, 245, 235, 220, 205, 190, 175, 160, 150, 140, 130, 125, 115, 100, 90, 75, 65, 55, 45, 35, 25, 15, 10, 5, 3, 1, 0}         // y-values
-    }
-};
-        GraphPanel intro = new GraphPanel(dataSet, tempGraph);
+        this.data = importFile; // Store it
+
+        double[][] graphData = importFile.graphData; // access the 2D array
+        
+        GraphPanel intro = new GraphPanel(graphData, tempGraph);
         tempGraph.add(intro, BorderLayout.CENTER);
     }
 
@@ -46,8 +41,8 @@ public boolean isOpen = true;
         CloseButtonBorder = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(620, 700));
         setMinimumSize(new java.awt.Dimension(620, 700));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         closeButton.setBackground(new java.awt.Color(204, 204, 204));
@@ -122,11 +117,14 @@ public boolean isOpen = true;
             java.util.logging.Logger.getLogger(GraphPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GraphPage().setVisible(true);
+                //new GraphPage(this.data).setVisible(true);
             }
         });
     }

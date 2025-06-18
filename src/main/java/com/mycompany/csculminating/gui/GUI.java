@@ -4,13 +4,8 @@
  */
 package com.mycompany.csculminating.gui;
 
-import java.io.BufferedReader;
+import java.awt.BorderLayout;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.lang.model.SourceVersion;
 import javax.swing.JFileChooser;
 
 /**
@@ -25,11 +20,47 @@ public class GUI extends javax.swing.JFrame {
     public static boolean isOpenG = false;
     public static boolean isOpenS = false;
     public static boolean isOpenD = false;
+    
+    private ImportFile importedData;
 
     
     public GUI() {
         initComponents();
-            
+        
+        errorTextFieldS.setVisible(false);
+        errorTextFieldG.setVisible(false);
+        
+        double[][] testData = {
+        { // Index 0: Time values
+            0.0, 0.016, 0.032, 0.048, 0.064, 0.080, 0.096, 0.112, 0.128, 0.144,
+            0.160, 0.176, 0.192, 0.208, 0.224, 0.240, 0.256, 0.272, 0.288, 0.304
+        },
+        { // Index 1: Position 1 (Cart 1, moving right)
+            50.0, 53.2, 56.5, 59.9, 63.4, 67.0, 70.7, 74.5, 78.4, 82.4,
+            86.5, 90.7, 95.0, 99.4, 103.9, 108.5, 113.2, 118.0, 122.9, 127.9
+        },
+        { // Index 2: filler (unused or velocity)
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        },
+        { // Index 3: filler (unused or velocity)
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        },
+        { // Index 4: Position 2 (Cart 2, moving left)
+            200.0, 196.8, 193.5, 190.1, 186.6, 183.0, 179.3, 175.5, 171.6, 167.6,
+            163.5, 159.3, 155.0, 150.6, 146.1, 141.5, 136.8, 132.0, 127.1, 122.1
+        }
+    };
+        
+        Cart cart1 = new Cart(1, -1, 150);
+        Cart cart2 = new Cart(1, 1.5, 60);
+        
+        
+        SimulationPanel idea = new SimulationPanel(testData, "pe", true, cart1, cart2, AnimPlaceHolder);
+        AnimPlaceHolder.add(idea, BorderLayout.CENTER);
+        idea.startSimulation();
+        
     }
 
     public static void changeOpenG()
@@ -59,21 +90,21 @@ public class GUI extends javax.swing.JFrame {
 
         SimButton = new javax.swing.JButton();
         GraphButton = new javax.swing.JButton();
-        DataButton = new javax.swing.JButton();
         InputButton = new javax.swing.JButton();
         TitleScreen1 = new javax.swing.JLabel();
         TitleScreen2 = new javax.swing.JLabel();
-        AnimPlaceHolder = new javax.swing.JPanel();
-        temp = new javax.swing.JLabel();
         SimButtonBorder = new javax.swing.JPanel();
         GraphButtonBorder = new javax.swing.JPanel();
-        DataButtonBorder = new javax.swing.JPanel();
         InputButtonBorder = new javax.swing.JPanel();
+        AnimPlaceHolder = new javax.swing.JPanel();
+        temp = new javax.swing.JLabel();
+        AnimBorder = new javax.swing.JPanel();
+        errorTextFieldS = new javax.swing.JTextField();
+        errorTextFieldG = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(620, 700));
-        setPreferredSize(new java.awt.Dimension(620, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -86,7 +117,7 @@ public class GUI extends javax.swing.JFrame {
                 SimButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(SimButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 500, 180, 40));
+        getContentPane().add(SimButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 500, 280, 40));
 
         GraphButton.setBackground(new java.awt.Color(204, 204, 204));
         GraphButton.setText("Graph");
@@ -97,18 +128,7 @@ public class GUI extends javax.swing.JFrame {
                 GraphButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(GraphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 500, 180, 40));
-
-        DataButton.setBackground(new java.awt.Color(204, 204, 204));
-        DataButton.setText("Data");
-        DataButton.setBorder(null);
-        DataButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        DataButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DataButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(DataButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(413, 500, 180, 40));
+        getContentPane().add(GraphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 500, 280, 40));
 
         InputButton.setBackground(new java.awt.Color(204, 204, 204));
         InputButton.setText("Select a File");
@@ -132,6 +152,15 @@ public class GUI extends javax.swing.JFrame {
         TitleScreen2.setText("Simulator");
         getContentPane().add(TitleScreen2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
 
+        SimButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(SimButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 498, 284, 44));
+
+        GraphButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(GraphButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 498, 284, 44));
+
+        InputButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(InputButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 578, 584, 34));
+
         AnimPlaceHolder.setBackground(new java.awt.Color(204, 204, 204));
 
         temp.setText("Insert Animation Here");
@@ -139,65 +168,55 @@ public class GUI extends javax.swing.JFrame {
 
         getContentPane().add(AnimPlaceHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 300, 140));
 
-        SimButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
-        getContentPane().add(SimButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 498, 184, 44));
+        AnimBorder.setBackground(new java.awt.Color(153, 153, 153));
+        AnimBorder.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(AnimBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(148, 268, 304, 144));
 
-        GraphButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
-        getContentPane().add(GraphButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(211, 498, 184, 44));
+        errorTextFieldS.setText("error stuff");
+        getContentPane().add(errorTextFieldS, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 550, 150, -1));
 
-        DataButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
-        getContentPane().add(DataButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(411, 498, 184, 44));
-
-        InputButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
-        getContentPane().add(InputButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 578, 584, 34));
+        errorTextFieldG.setText("error stuff");
+        getContentPane().add(errorTextFieldG, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 550, 150, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void SimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimButtonActionPerformed
       
-        SimPage openS = new SimPage();
-        if(!isOpenS)
-        {
-            openS.setVisible(true);
-            isOpenS = !isOpenS;
-        }
-        
-        
+        if (!isOpenS && importedData != null) {
+      SimPage openS = new SimPage(importedData); // ✅ send proper data
+      openS.setVisible(true);
+      isOpenS = true;
+      errorTextFieldS.setVisible(false);
+      } else if (importedData == null) {
+          errorTextFieldS.setVisible(true);
+          errorTextFieldS.setText("Please select a file first.");
+      }
         
     }//GEN-LAST:event_SimButtonActionPerformed
 
     private void GraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraphButtonActionPerformed
-      
-        GraphPage openG = new GraphPage();
-        if(!isOpenG)
-        {
-            openG.setVisible(true);
-            isOpenG = !isOpenG;
-        }
-        
-        
-        
+    
+         if (!isOpenG && importedData != null) {
+      GraphPage openG = new GraphPage(importedData); // ✅ send proper data
+      openG.setVisible(true);
+      isOpenG = true;
+      errorTextFieldG.setVisible(false);
+      } else if (importedData == null) {
+          errorTextFieldG.setVisible(true);
+          errorTextFieldG.setText("Please select a file first.");
+      }
     }//GEN-LAST:event_GraphButtonActionPerformed
 
     private void InputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputButtonActionPerformed
         
-        ImportFile.findFile();
-        
-    }//GEN-LAST:event_InputButtonActionPerformed
-
-    private void DataButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DataButtonActionPerformed
-      
-        DataPage openD = new DataPage();
-        if(!isOpenD)
-        {
-            openD.setVisible(true);
-            isOpenD = !isOpenD;
+        JFileChooser chooser = new JFileChooser();
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            ImportFile importedData = new ImportFile(file); // Pass file to constructor
+            this.importedData = importedData;
         }
-        
-        
-        
-    }//GEN-LAST:event_DataButtonActionPerformed
+    }//GEN-LAST:event_InputButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +237,8 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel AnimBorder;
     private javax.swing.JPanel AnimPlaceHolder;
-    private javax.swing.JButton DataButton;
-    private javax.swing.JPanel DataButtonBorder;
     private javax.swing.JButton GraphButton;
     private javax.swing.JPanel GraphButtonBorder;
     private javax.swing.JButton InputButton;
@@ -229,6 +247,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel SimButtonBorder;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JLabel TitleScreen2;
+    private javax.swing.JTextField errorTextFieldG;
+    private javax.swing.JTextField errorTextFieldS;
     private javax.swing.JLabel temp;
     // End of variables declaration//GEN-END:variables
 }

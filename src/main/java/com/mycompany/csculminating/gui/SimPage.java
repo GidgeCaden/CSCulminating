@@ -14,6 +14,8 @@ public class SimPage extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SimPage.class.getName());
 
+    
+    
     /**
      * Creates new form SimPage
      */
@@ -25,7 +27,10 @@ public class SimPage extends javax.swing.JFrame {
     public SimPage(ImportFile importFile) {
         initComponents();
         this.data = importFile; // Store it
-
+        
+        SimSpeedSlider.setMaximum(500);
+        SimSpeedSlider.setMinimum(75);
+        SimSpeedSlider.setValue(325);
         double[][] simData = importFile.graphData; // access the 2D array
         
         Cart cart1 = new Cart(1, -1, 150);
@@ -54,6 +59,8 @@ public class SimPage extends javax.swing.JFrame {
         loopButtonBorder = new javax.swing.JPanel();
         pauseButton = new javax.swing.JButton();
         pauseButtonBorder = new javax.swing.JPanel();
+        SimSpeedSlider = new javax.swing.JSlider();
+        SliderLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 700));
@@ -123,6 +130,16 @@ public class SimPage extends javax.swing.JFrame {
         pauseButtonBorder.setBackground(new java.awt.Color(153, 153, 153));
         getContentPane().add(pauseButtonBorder, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 568, 284, 34));
 
+        SimSpeedSlider.setMajorTickSpacing(1);
+        SimSpeedSlider.setMinimum(10);
+        SimSpeedSlider.setMinorTickSpacing(1);
+        SimSpeedSlider.setValue(250);
+        getContentPane().add(SimSpeedSlider, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 190, 580, -1));
+
+        SliderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        SliderLabel.setText("Simulation Speed (Reset to Apply)");
+        getContentPane().add(SliderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 170, 580, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -135,7 +152,7 @@ public class SimPage extends javax.swing.JFrame {
 
     private void loopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopButtonActionPerformed
         // TODO add your handling code here:
-        simPanel.resetFrameIndex();
+        simPanel.resetFrameIndex(SimSpeedSlider.getValue());
     }//GEN-LAST:event_loopButtonActionPerformed
 
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
@@ -170,6 +187,8 @@ public class SimPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel CloseButtonBorder;
+    private javax.swing.JSlider SimSpeedSlider;
+    private javax.swing.JLabel SliderLabel;
     private javax.swing.JLabel TitleScreen1;
     private javax.swing.JButton closeButton;
     private javax.swing.JButton loopButton;
@@ -178,4 +197,5 @@ public class SimPage extends javax.swing.JFrame {
     private javax.swing.JPanel pauseButtonBorder;
     private javax.swing.JPanel tempSim;
     // End of variables declaration//GEN-END:variables
+
 }

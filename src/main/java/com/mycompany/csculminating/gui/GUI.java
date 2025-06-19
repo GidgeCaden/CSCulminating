@@ -7,9 +7,7 @@ package com.mycompany.csculminating.gui;
 import java.awt.BorderLayout;
 import java.io.File;
 import javax.swing.JFileChooser;
-import java.awt.PopupMenu;
-import java.awt.Font;
-import org.netbeans.lib.awtextra.AbsoluteConstraint;
+
 /**
  *
  * @author CaGid4274

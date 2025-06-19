@@ -42,6 +42,7 @@ public class GraphPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(620, 700));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         closeButton.setBackground(new java.awt.Color(204, 204, 204));
@@ -61,14 +62,14 @@ public class GraphPage extends javax.swing.JFrame {
         tempGraph.setLayout(tempGraphLayout);
         tempGraphLayout.setHorizontalGroup(
             tempGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 596, Short.MAX_VALUE)
+            .addGap(0, 576, Short.MAX_VALUE)
         );
         tempGraphLayout.setVerticalGroup(
             tempGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 296, Short.MAX_VALUE)
         );
 
-        getContentPane().add(tempGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 600, 300));
+        getContentPane().add(tempGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 230, 580, 300));
 
         TitleScreen1.setBackground(new java.awt.Color(153, 153, 153));
         TitleScreen1.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 96)); // NOI18N

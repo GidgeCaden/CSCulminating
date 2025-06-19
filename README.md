@@ -26,6 +26,6 @@ Simply input a CSV file in this format: (CSVs for this project were made using t
 Simply input a CSV file in this format (CSVs for this project were made using the graphical app): 
 ![Screenshot 2025-06-18 103931](https://github.com/user-attachments/assets/8236f3f5-a76c-4784-9199-917a97262cc0)
 ## Technologies
-Java Maven 
-Java + Swing 
-Java.awt
+- Java Maven 
+- Java + Swing 
+- Java.awt

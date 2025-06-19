@@ -7,7 +7,9 @@ package com.mycompany.csculminating.gui;
 import java.awt.BorderLayout;
 import java.io.File;
 import javax.swing.JFileChooser;
-
+import java.awt.PopupMenu;
+import java.awt.Font;
+import org.netbeans.lib.awtextra.AbsoluteConstraint;
 /**
  *
  * @author CaGid4274
@@ -54,7 +56,7 @@ public class GUI extends javax.swing.JFrame {
     };
         
         Cart cart1 = new Cart(1, -1, 150);
-        Cart cart2 = new Cart(1, 2, 60);
+        Cart cart2 = new Cart(1, 1.5, 60);
         
         
         SimulationPanel idea = new SimulationPanel(testData, "pe", true, cart1, cart2, AnimPlaceHolder);

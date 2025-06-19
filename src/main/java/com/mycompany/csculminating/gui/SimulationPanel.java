@@ -55,7 +55,8 @@ public class SimulationPanel extends JPanel {
     
     // Boolean to track whether simulation is paused
     private static boolean isPaused = false;
-    
+    //Sets the Delay of the Timer
+    private int delay = 250;
     /**
      * Constructor to set up simulation panel with data, collision type, mode, carts, and parent panel.
      * @param data Imported simulation data arrays
@@ -94,13 +95,13 @@ public class SimulationPanel extends JPanel {
             });
         } else {
             // In frame mode, update simulation every 250 ms (4 FPS)
-            timer = new Timer(250, new ActionListener() {
+            timer = new Timer(delay, new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     updateSimulation();
                 }
             });
-        }
+        };
         timer.start();
     }
     
@@ -316,6 +317,11 @@ public class SimulationPanel extends JPanel {
     public void resetFrameIndex() {
         frameIndex = 0;
         stopSimulation();
+    }
+    public void resetFrameIndex(int speed){
+        frameIndex = 0;
+        stopSimulation();
+        delay = 575 - speed;
         startSimulation();
     }
     

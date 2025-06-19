@@ -23,18 +23,54 @@ import javax.swing.JFileChooser;
 public class ImportFile {
    
     // 2D array holding all data arrays together
+
+    /**
+     *
+     */
     public double[][] graphData;
     
     // Separate arrays for each column of data
+
+    /**
+     *
+     */
     public double[] time;
+
+    /**
+     *
+     */
     public double[] pos1;
+
+    /**
+     *
+     */
     public double[] pos2;
+
+    /**
+     *
+     */
     public double[] vel1;
+
+    /**
+     *
+     */
     public double[] vel2;
+
+    /**
+     *
+     */
     public double[] acc1;
+
+    /**
+     *
+     */
     public double[] acc2;
     
     // Another variable for data storage (currently unused)
+
+    /**
+     *
+     */
     public double[][] data;
     
     /**

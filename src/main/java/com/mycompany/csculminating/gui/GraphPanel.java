@@ -49,11 +49,11 @@ public class GraphPanel extends JPanel {
     /**
      * Constructs a GraphPanel with the specified data.
      *
-     * @param data 2D array: first array is x-values, subsequent arrays are y-values
+     * @param importedData An imported file that is turned into a 2D array: first array is x-values, subsequent arrays are y-values
      * @param panel The parent panel for determining width/height
      */
-    public GraphPanel(double[][] data, JPanel panel) {
-        this.data = data;
+    public GraphPanel(ImportFile importedData, JPanel panel) {
+        this.data = importedData.graphData;
 
         // Set layout and appearance
         panel.setLayout(new BorderLayout());

@@ -9,7 +9,11 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 /**
- *
+ * Main GUI class for the 1D Collision Simulator.
+ * This class sets up the interface, handles user interaction, and starts a test simulation on launch.
+ * 
+ * Buttons allow users to load data, open graph and simulation windows, and handle input errors.
+ * 
  * @author CaGid4274
  */
 public class GUI extends javax.swing.JFrame {
@@ -18,18 +22,31 @@ public class GUI extends javax.swing.JFrame {
      * Creates new form GUI
      */
     public static boolean isOpenG = false;
+
+    /**
+     *
+     */
     public static boolean isOpenS = false;
+
+    /**
+     *
+     */
     public static boolean isOpenD = false;
     
+    /** Holds the currently imported file data for simulation or graphing. */
     private ImportFile importedData;
 
-    
+    /**
+     * Constructs the main GUI window and starts a default test simulation.
+     */
     public GUI() {
         initComponents();
         
+        // Hide error fields initially
         errorTextFieldS.setVisible(false);
         errorTextFieldG.setVisible(false);
         
+        // Test data used to run a simulation at launch
         double[][] testData = {
         { // Index 0: Time values
             0.0, 0.016, 0.032, 0.048, 0.064, 0.080, 0.096, 0.112, 0.128, 0.144,
@@ -53,26 +70,36 @@ public class GUI extends javax.swing.JFrame {
         }
     };
         
+         // Test carts used for simulation
         Cart cart1 = new Cart(1, -1, 150);
         Cart cart2 = new Cart(1, 1.5, 60);
         
-        
+        // Create and start the simulation
         SimulationPanel idea = new SimulationPanel(testData, "pe", true, cart1, cart2, AnimPlaceHolder);
         AnimPlaceHolder.add(idea, BorderLayout.CENTER);
         idea.startSimulation();
         
     }
 
+    /**
+     * Toggles the open status of the Graph window.
+     */
     public static void changeOpenG()
     {
         isOpenG = !isOpenG;
     }
     
+    /**
+     * Toggles the open status of the Simulation window.
+     */
     public static void changeOpenS()
     {
         isOpenS = !isOpenS;
     }
     
+    /**
+     * Toggles the open status of the Data (Input) window.
+     */
     public static void changeOpenD()
     {
         isOpenD = !isOpenD;
@@ -181,6 +208,10 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Action handler for Simulation button.
+     * Opens simulation page if a file is loaded; otherwise, displays error.
+     */
     private void SimButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SimButtonActionPerformed
       
         if (!isOpenS && importedData != null) {
@@ -195,6 +226,10 @@ public class GUI extends javax.swing.JFrame {
         
     }//GEN-LAST:event_SimButtonActionPerformed
 
+    /**
+     * Action handler for Graph button.
+     * Opens graph page if a file is loaded; otherwise, displays error.
+     */
     private void GraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GraphButtonActionPerformed
     
          if (!isOpenG && importedData != null) {
@@ -208,6 +243,10 @@ public class GUI extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_GraphButtonActionPerformed
 
+    /**
+     * Action handler for File Selection button.
+     * Opens a file chooser to select data and loads it into an ImportFile object.
+     */
     private void InputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputButtonActionPerformed
         
         JFileChooser chooser = new JFileChooser();
@@ -219,6 +258,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_InputButtonActionPerformed
 
     /**
+     * Launches the GUI.
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -235,7 +275,8 @@ public class GUI extends javax.swing.JFrame {
             }
         });
     }
-
+    
+// GUI Component Declarations
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AnimBorder;
     private javax.swing.JPanel AnimPlaceHolder;

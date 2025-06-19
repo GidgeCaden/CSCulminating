@@ -7,22 +7,36 @@ package com.mycompany.csculminating.gui;
 import java.awt.BorderLayout;
 
 /**
- *
+ * Frame that displays a graph of imported simulation data.
+ * Designed to visualize the motion of two carts using a custom {@code GraphPanel}.
+ * 
+ * This window renders a time-position or time-velocity graph from CSV input data,
+ * showing the result of physics-based collision simulations.
+ * 
+ * Includes UI components like a title and a close button, and interacts
+ * with the main GUI to track open/close state.
+ * 
  * @author CaGid4274
  */
 public class GraphPage extends javax.swing.JFrame {
+    
+    /** Tracks whether the graph window is currently open. */
     public boolean isOpen = true;
+    
+    /** Data imported from file, used for plotting. */
     private ImportFile data;
-    /**
-     * Creates new form GraphPage
+    
+     /**
+     * Constructs a new GraphPage and loads the data into a graph panel.
+     *
+     * @param importFile the object containing the data to be visualized
      */
     public GraphPage(ImportFile importFile) {
         initComponents();
         this.data = importFile; // Store it
 
-        double[][] graphData = importFile.graphData; // access the 2D array
-        
-        GraphPanel intro = new GraphPanel(graphData, tempGraph);
+        /** UI components */
+        GraphPanel intro = new GraphPanel(importFile, tempGraph);
         tempGraph.add(intro, BorderLayout.CENTER);
     }
 
@@ -84,14 +98,21 @@ public class GraphPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Action performed when the Close button is clicked.
+     * Notifies the main GUI and hides the window.
+     */
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         
         GUI.changeOpenG();
         setVisible(false);
         
     }//GEN-LAST:event_closeButtonActionPerformed
-
+    
     /**
+     * Main method stub. Left empty to prevent standalone launching
+     * without providing data.
+     *
      * @param args the command line arguments
      */
     public static void main(String args[]) {

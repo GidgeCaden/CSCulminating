@@ -7,11 +7,23 @@ package com.mycompany.csculminating.gui;
 import java.awt.BorderLayout;
 
 /**
- *
+ * JFrame that hosts and controls the simulation of two colliding carts.
+ * 
+ * Loads simulation data from a CSV file and uses {@code SimulationPanel}
+ * to animate the cart interactions based on the specified collision type.
+ * 
+ * Includes:
+ * - Pause and reset controls
+ * - Adjustable simulation speed via slider
+ * - Close button for exiting the simulation view
+ * 
+ * Simulation is initialized with hardcoded carts and collision mode (currently set to perfectly elastic).
+ * 
  * @author caden
  */
 public class SimPage extends javax.swing.JFrame {
     
+    /** Logger for error reporting and debugging. */
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(SimPage.class.getName());
 
     
@@ -19,10 +31,16 @@ public class SimPage extends javax.swing.JFrame {
     /**
      * Creates new form SimPage
      */
+    /** The imported CSV data containing the simulation state. */
     private ImportFile data;
+    
+    /** The simulation panel that performs animation and physics rendering. */
     private SimulationPanel simPanel;
+
     /**
-     * Creates new form SimPage
+     * Constructs a new simulation page.
+     *
+     * @param importFile the object containing parsed CSV graph data
      */
     public SimPage(ImportFile importFile) {
         initComponents();
@@ -143,6 +161,12 @@ public class SimPage extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Action performed when the "Close" button is clicked.
+     * Hides the simulation window and updates GUI state flag.
+     *
+     * @param evt the event that triggered the button press
+     */
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
 
         GUI.changeOpenS();
@@ -150,18 +174,32 @@ public class SimPage extends javax.swing.JFrame {
 
     }//GEN-LAST:event_closeButtonActionPerformed
 
+    /**
+     * Action performed when the "Reset" button is clicked.
+     * Resets the simulation to the first frame using current slider value.
+     *
+     * @param evt the event that triggered the button press
+     */
     private void loopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loopButtonActionPerformed
         // TODO add your handling code here:
         simPanel.resetFrameIndex(SimSpeedSlider.getValue());
     }//GEN-LAST:event_loopButtonActionPerformed
 
+        /**
+     * Action performed when the "Pause" button is clicked.
+     * Pauses the simulation playback.
+     *
+     * @param evt the event that triggered the button press
+     */
     private void pauseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseButtonActionPerformed
         // TODO add your handling code here:
         simPanel.pauseFrameIndex();
     }//GEN-LAST:event_pauseButtonActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Main method used for testing and debugging the SimPage window.
+     *
+     * @param args command line arguments (not used)
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

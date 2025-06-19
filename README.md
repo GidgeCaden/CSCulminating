@@ -29,4 +29,3 @@ Simply input a CSV file in this format (CSVs for this project were made using th
 - Java Maven 
 - Java + Swing 
 - Java.awt
-- [Uploading allclasses-index.html…]()

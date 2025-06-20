@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.io.File;
 import javax.swing.JPanel;
 
 /**
@@ -26,6 +27,8 @@ public class GraphPanel extends JPanel {
 
     // Dataset: data[0] = x-values, data[1+] = various y-values
     private double[][] data;
+    //File Used
+    private ImportFile importedData;
 
     // Panel dimensions
     private static double panelWidth;
@@ -53,6 +56,7 @@ public class GraphPanel extends JPanel {
      * @param panel The parent panel for determining width/height
      */
     public GraphPanel(ImportFile importedData, JPanel panel) {
+        this.importedData = importedData;
         this.data = importedData.graphData;
 
         // Set layout and appearance
@@ -116,7 +120,7 @@ public class GraphPanel extends JPanel {
         // Draw title and axis labels
         g2.setColor(Color.BLACK);
         g2.setFont(new Font("SansSerif", Font.BOLD, 12));
-        g2.drawString("CSV.csv", (int)(panelWidth / 2) - 40, 20); // Title
+        g2.drawString(importedData.fileName, (int)(panelWidth / 2) - 40, 20); // Title
         g2.drawString("Time(s)", (int)(panelWidth / 2) - 20, (int)(panelHeight - 5)); // X-Axis
 
         // Draw vertical Y-axis label (rotated)

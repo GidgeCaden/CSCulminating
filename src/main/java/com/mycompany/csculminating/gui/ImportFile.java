@@ -66,8 +66,8 @@ public class ImportFile {
      */
     public double[] acc2;
     
-    // Another variable for data storage (currently unused)
-
+    // File Name
+    public String fileName;
     /**
      *
      */
@@ -80,6 +80,7 @@ public class ImportFile {
     public ImportFile(File file)
     {
         findFile(file);  // Calls the method to read and parse the file
+        fileName = file.getName();
     }
 
     /**
